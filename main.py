@@ -1,8 +1,9 @@
+import os
 import asyncio
 from telegram import Bot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-BOT_TOKEN = "8712541872:AAGTYTGoqEoL07weB2zBEzBIo2R1mcQzmiA"
+BOT_TOKEN = os.environ["BOT_TOKEN"]
 
 GROUP_ID = -1004347995330
 
@@ -15,7 +16,10 @@ MESSAGE = """
 bot = Bot(BOT_TOKEN)
 
 async def send_message():
-    await bot.send_message(chat_id=GROUP_ID, text=MESSAGE)
+    await bot.send_message(
+        chat_id=GROUP_ID,
+        text=MESSAGE
+    )
 
 async def main():
     scheduler = AsyncIOScheduler()
@@ -29,4 +33,5 @@ async def main():
     while True:
         await asyncio.sleep(3600)
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())

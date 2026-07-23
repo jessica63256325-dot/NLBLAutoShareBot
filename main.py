@@ -1,22 +1,32 @@
 import asyncio
 from telegram import Bot
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-BOT_TOKEN = "8712541872:AAG9qHuLKGTSDkmK9AIcbXGfZU4Y8W5KxDg"
+BOT_TOKEN = "8712541872:AAGTYTGoqEoL07weB2zBEzBIo2R1mcQzmiA"
+
 GROUP_ID = -1004347995330
 
 MESSAGE = """
-🔥 NL BL EXPOSED 🔥
+📢 Please Share Our Group ❤️
 
-✅ Join Now
-https://is.gd/3MfYhX
-
-Select age 26+ on my page ❤️
-
-#Netherlands #Belgium
+🔗 https://t.me/+YdrtuYEDbVgyNjE1
 """
 
+bot = Bot(BOT_TOKEN)
+
+async def send_message():
+    await bot.send_message(chat_id=GROUP_ID, text=MESSAGE)
+
 async def main():
-bot = Bot(token=BOT_TOKEN)
-await bot.send_message(chat_id=GROUP_ID, text=MESSAGE)
+    scheduler = AsyncIOScheduler()
+    scheduler.add_job(send_message, "interval", minutes=30)
+    scheduler.start()
+
+    print("Bot Started")
+
+    await send_message()
+
+    while True:
+        await asyncio.sleep(3600)
 
 asyncio.run(main())

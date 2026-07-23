@@ -1,0 +1,1 @@
+print("NLBLAutoShareBot is running!")
